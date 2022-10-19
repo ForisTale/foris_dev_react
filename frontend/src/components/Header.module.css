@@ -1,0 +1,22 @@
+.linkColor a {
+    color: #17a2b8;
+}
+
+.linkColor a:hover {
+    color: #17a2b8;
+}
+
+.navbar {
+    border-radius: 10px;
+    background-color: #343a40;
+    justify-content: space-evenly;
+}
+
+.navBrand {
+    margin-left: 20px;
+}
+
+.nav {
+    width: 100%;
+    justify-content: space-around;
+}

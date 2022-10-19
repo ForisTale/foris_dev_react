@@ -1,10 +1,10 @@
-import styles from './App.module.css';
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div>
-      <h1>Placeholder</h1>
-    </div>
+    <>
+      <Header/>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 .linkColor a {
-    color: #17a2b8;
+    color: #17a2b8 !important;
+    text-decoration: none;
 }
 
 .linkColor a:hover {

@@ -1,4 +1,4 @@
-import styles from "./MainPage.module.css";
+import classes from "./MainPage.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Link} from "react-router-dom";
@@ -18,7 +18,7 @@ const MainPage = () => {
 
       <Row className={"my-5"}>
         <Col className={""}>
-          <Link className={styles.link} to={MainPageURLs.tec}><h2>The Elder Commands</h2></Link>
+          <Link className={classes.link} to={MainPageURLs.tec}><h2>The Elder Commands</h2></Link>
           <p>This site was created to demonstrate some of my django projects.<br/>
             If you want to know more about my projects visit "About Me" page, where you can find link to my accounts.
           </p>

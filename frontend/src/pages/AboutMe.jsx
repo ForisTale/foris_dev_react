@@ -1,3 +1,4 @@
+import classes from "./AboutMe.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -22,8 +23,8 @@ const AboutMe = () => {
         <Col className={"col-4 mx-auto"}>
           <h3>Links to my accounts:</h3>
           <ul>
-            <li><a href="https://www.linkedin.com/in/Zglobicki-Pawel">LinkedIn</a></li>
-            <li><a href="https://github.com/ForisTale">GitHub</a></li>
+            <li><a className={classes.link} href="https://www.linkedin.com/in/Zglobicki-Pawel">LinkedIn</a></li>
+            <li><a className={classes.link} href="https://github.com/ForisTale">GitHub</a></li>
           </ul>
         </Col>
       </Row>

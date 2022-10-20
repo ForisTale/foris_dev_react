@@ -4,13 +4,14 @@ import {MainPageURLs} from "./inventory/mainPageURLs";
 import {Routes, Route} from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import AboutMe from "./pages/AboutMe";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
     <Routes>
       <Route element={<MainPageLayout/>}>
         <Route path={MainPageURLs.mainPage} element={<MainPage/>}/>
-        <Route path={MainPageURLs.contact} element={<p>Contact</p>}/>
+        <Route path={MainPageURLs.contact} element={<Contact/>}/>
         <Route path={MainPageURLs.aboutMe} element={<AboutMe/>}></Route>
       </Route>
       <Route element={<TecPageLayout/>}>

@@ -2,5 +2,5 @@ export const MainPageURLs = {
   mainPage: "/",
   tec: "/tec",
   contact: "/contact",
-  aboutMe: "/aboutme",
+  aboutMe: "/about-me",
 };

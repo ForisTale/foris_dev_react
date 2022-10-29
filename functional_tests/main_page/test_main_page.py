@@ -1,5 +1,6 @@
 from functional_tests.base import FunctionalTest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.relative_locator import locate_with
 
 
 class MainPageBasicTest(FunctionalTest):
@@ -25,7 +26,7 @@ class MainPageBasicTest(FunctionalTest):
         self.assertIn("About Me", links)
 
         # He clicked on about me
-        self.check_link_send_to_correct_url("About Me", "/about_me")
+        self.check_link_send_to_correct_url("About Me", "/about-me")
 
         # There is basic description about him
         description = self.driver.find_element(By.ID, "about_me").text
@@ -55,12 +56,12 @@ class MainPageBasicTest(FunctionalTest):
         self.wait_for(lambda: self.assertEqual(self.driver.current_url, self.live_server_url + "/contact"))
 
         # there he sees contact form so he filled it
-        self.wait_for(lambda: self.driver.find_element(By.NAME, "email").send_keys("test@test.com"))
-        self.driver.find_element(By.NAME, "subject").send_keys("Subject")
-        self.driver.find_element(By.NAME, "message").send_keys("Message")
+        self.wait_for(lambda: self.driver.find_element(By.ID, "formEmail").send_keys("test@test.com"))
+        self.driver.find_element(By.ID, "formSubject").send_keys("Subject")
+        self.driver.find_element(By.ID, "formMessage").send_keys("Message")
 
         # then send it
-        self.driver.find_element(By.TAG_NAME, "button").click()
+        self.driver.find_element(locate_with(By.ID, "formMessage").below({By.TAG_NAME: "button"})).click()
 
         # now he sees message that massage was send
         message = self.wait_for(lambda: self.driver.find_element(By.CLASS_NAME, "messages").text)

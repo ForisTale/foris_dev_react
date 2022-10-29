@@ -12,10 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from utils.is_deployed import is_deployed
+import yaml
+
+
+with open("../.secret") as secret_file:
+    secret = yaml.safe_load(secret_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,7 +32,6 @@ SECRET_KEY = 'django-insecure-&4xdhqa)c-*70867su8^e$xl5$%0&xoku(ki17_@%x6l6si%tj
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -56,7 +60,7 @@ ROOT_URLCONF = 'foris_dev_react.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'frontend' / "build", ],
+        'DIRS': [BASE_DIR / 'frontend' / "build"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'foris_dev_react.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -81,7 +84,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -101,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -113,7 +114,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -124,3 +124,12 @@ STATICFILES_DIRS = [BASE_DIR / "frontend" / "build" / "static"]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+database_name = "test_database"
+# ReCaptcha
+if is_deployed():
+    RECAPTCHA_SITE_KEY = secret[f"recaptcha_{database_name}_site_key"]
+    RECAPTCHA_SECRET_KEY = secret[f"recaptcha_{database_name}_secret_key"]
+else:
+    RECAPTCHA_SITE_KEY = secret["recaptcha_site_key"]
+    RECAPTCHA_SECRET_KEY = secret["recaptcha_secret_key"]

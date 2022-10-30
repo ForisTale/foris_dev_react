@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.firefox.options import Options
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from invoke import Context
 
 from .remote_tools import reset_database
 
@@ -9,8 +10,6 @@ import os
 import time
 
 MAX_WAIT = 2
-TEST_EMAIL = "staging_test_email@yahoo.com"
-FOR_TEST_EMAIL = "staging_test_email"
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "screendumps"
 )
@@ -31,6 +30,13 @@ def wait(fn):
 
 
 class FunctionalTest(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        context = Context()
+        with context.cd(".\\frontend"):
+            context.run("npm run build")
+
     def setUp(self):
         options = Options()
         options.headless = True

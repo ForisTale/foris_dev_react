@@ -1,8 +1,11 @@
+import json
+
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.firefox.options import Options
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from invoke import Context
+from selenium.webdriver.common.by import By
 
 from .remote_tools import reset_database
 
@@ -33,6 +36,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        os.environ["functional_testing"] = "True"
         context = Context()
         with context.cd(".\\frontend"):
             context.run("npm run build")
@@ -57,6 +61,7 @@ class FunctionalTest(StaticLiveServerTestCase):
                 self.driver.switch_to.window(handle)
                 self.take_screenshot()
                 self.dump_html()
+                self.dump_logs()
         self.driver.quit()
         super().tearDown()
 
@@ -71,8 +76,17 @@ class FunctionalTest(StaticLiveServerTestCase):
     def dump_html(self):
         filename = self._get_filename() + ".html"
         print("dumping page HTML to", filename)
-        with open(filename, "w") as f:
-            f.write(self.driver.page_source)
+        with open(filename, "w") as file:
+            file.write(self.driver.page_source)
+
+    def dump_logs(self):
+        filename = self._get_filename() + ".log"
+        self.driver.execute_script(open("functional_tests/inject_logs_into_html.js").read())
+        logs_as_json_stringify = self.driver.find_element(By.ID, "consoleLogs").get_property("value")
+        logs_as_json = json.loads(logs_as_json_stringify)
+        print("dumping logs to", filename)
+        with open(filename, "w") as file:
+            json.dump(logs_as_json, file)
 
     def _get_filename(self):
         return "{folder}/{classname}.{method}-window-{windowid}".format(

@@ -1,6 +1,6 @@
 from functional_tests.base import FunctionalTest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.relative_locator import locate_with
+from unittest.mock import patch
 
 
 class MainPageBasicTest(FunctionalTest):
@@ -29,9 +29,6 @@ class MainPageBasicTest(FunctionalTest):
         self.check_link_send_to_correct_url("About Me", "/about-me")
 
         # There is basic description about him
-        description = self.driver.find_element(By.ID, "about_me").text
-        self.assertNotEqual(description, "")
-
         # And sees links to his GitHub, and other sites
         all_links = self.driver.find_elements(By.TAG_NAME, "li")
         all_links = [link.text for link in all_links]
@@ -49,7 +46,8 @@ class MainPageBasicTest(FunctionalTest):
         # Everything looks ok, so he come back to main site by link.
         self.check_link_send_to_correct_url("Foris.dev", "/")
 
-    def test_contact_allow_to_send_email_to_administrator(self):
+    @patch("api.views.send_mail")
+    def test_contact_allow_to_send_email_to_administrator(self, mock_send_email):
         # Foris want sent message to page admin,
         # so he clicked contact
         self.wait_for(lambda: self.driver.find_element(By.LINK_TEXT, "Contact").click())
@@ -61,7 +59,9 @@ class MainPageBasicTest(FunctionalTest):
         self.driver.find_element(By.ID, "formMessage").send_keys("Message")
 
         # then send it
-        self.driver.find_element(locate_with(By.ID, "formMessage").below({By.TAG_NAME: "button"})).click()
+        self.driver.find_element(By.CLASS_NAME, "btn").click()
+
+        self.wait_for(lambda: mock_send_email.assert_called_once())
 
         # now he sees message that massage was send
         message = self.wait_for(lambda: self.driver.find_element(By.CLASS_NAME, "messages").text)

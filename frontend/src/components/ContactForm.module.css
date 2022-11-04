@@ -1,0 +1,31 @@
+.link {
+    text-decoration: none;
+}
+
+.formMaxWidth {
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+
+.input, .input:focus {
+    color: #17a2b8 !important;
+    background-color: black !important;
+}
+
+.button, .button:hover {
+    background-color: #343a40 !important;
+    color: #17a2b8 !important;
+    border: none !important;
+}
+
+.formButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+@media (min-width:600px) {
+    .formMaxWidth {
+        max-width: 31%;
+    }
+}

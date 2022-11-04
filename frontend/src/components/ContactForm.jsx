@@ -1,5 +1,5 @@
 import Form from "react-bootstrap/Form";
-import classes from "../pages/Contact.module.css";
+import classes from "./ContactForm.module.css";
 import Button from "react-bootstrap/Button";
 import {useState} from "react";
 

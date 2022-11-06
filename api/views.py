@@ -17,6 +17,9 @@ def contact(request):
                       ["foris.dev@gmail.com"])
             return JsonResponse({"message": "Message was sent!"})
         except SMTPException:
-            return JsonResponse({"message": "Something went wrong! \nPlease try a different method of contact."})
+            return JsonResponse(
+                {"message": "Service is unavailable at the moment. <br/>Please try a different method of contact."},
+                status=503,
+            )
     else:
         return HttpResponse(status=405)

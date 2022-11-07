@@ -4,11 +4,17 @@ const importantMessagesSlice = createSlice({
   name: "importantMessages",
   initialState: [],
   reducers: {
-    append(state, message) {
-      state.push(message.payload);
+    append: (state, messages) => {
+      if(Array.isArray(messages.payload)) {
+        for (const message of messages.payload) {
+          state.push(message)
+        }
+      } else {
+        state.push(messages.payload);
+      }
     },
-    clear(state) {
-      state = [];
+    clear: () => {
+      return [];
     },
   }
 });

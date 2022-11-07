@@ -35,12 +35,14 @@ function ContactForm() {
       },
       headers: {
         "X-CSRFToken": getCSRFToken(),
-      }
+      },
     }).then(response => response.json()).then(data => {
       dispatch(importantMessagesActions.append(data.message));
     }).catch(error => {
-      dispatch(importantMessagesActions.append("Service is unavailable at the moment. " +
-        "<br/>Please try a different method of contact."))
+      dispatch(importantMessagesActions.append([
+        "Service is unavailable at the moment. ",
+        "Please try a different method of contact."
+      ]));
     });
   };
 

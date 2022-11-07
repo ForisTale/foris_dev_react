@@ -18,7 +18,7 @@ def contact(request):
             return JsonResponse({"message": "Message was sent!"})
         except SMTPException:
             return JsonResponse(
-                {"message": "Service is unavailable at the moment. <br/>Please try a different method of contact."},
+                {"message": ["Service is unavailable at the moment.", "Please try a different method of contact."]},
                 status=503,
             )
     else:

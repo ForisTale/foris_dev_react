@@ -64,5 +64,5 @@ class MainPageBasicTest(FunctionalTest):
         self.wait_for(lambda: mock_send_email.assert_called_once())
 
         # now he sees message that massage was send
-        message = self.wait_for(lambda: self.driver.find_element(By.CLASS_NAME, "messages").text)
+        message = self.wait_for(lambda: self.driver.find_element(By.CLASS_NAME, "modal-body").text)
         self.assertIn("Message was sent!", message)

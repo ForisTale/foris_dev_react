@@ -1,8 +1,9 @@
-import Header from "../Header";
+import Header from "./Header";
 import Container from "react-bootstrap/Container";
 import {Outlet} from "react-router-dom";
 import {MainPageURLs} from "../../inventory/mainPageURLs";
 import ShowImportantMessages from "../ShowImportantMessages";
+import Footer from "./Footer";
 
 const MainPageLayout = () => {
   const links = [
@@ -15,6 +16,7 @@ const MainPageLayout = () => {
       <Header links={links}/>
       <ShowImportantMessages/>
       <Outlet/>
+      <Footer/>
     </Container>
   );
 };

@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import classes from "./Header.module.css";
-import {MainPageURLs} from "../inventory/mainPageURLs";
+import {MainPageURLs} from "../../inventory/mainPageURLs";
 import {LinkContainer} from "react-router-bootstrap";
 
 const Header = (props) => {

@@ -41,7 +41,7 @@ class MainPageBasicTest(FunctionalTest):
     def test_can_go_to_the_elder_commands_and_back(self):
 
         # He spotted new link to TEC, decided to visit it.
-        self.check_link_send_to_correct_url("The Elder Commands", "/tec")
+        self.check_link_send_to_correct_url("The Elder Commands", "/the-elder-commands")
 
         # Everything looks ok, so he come back to main site by link.
         self.check_link_send_to_correct_url("Foris.dev", "/")

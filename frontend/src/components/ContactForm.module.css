@@ -24,6 +24,14 @@
     margin-top: 25px;
 }
 
+.checkbox {
+    margin-top: 25px;
+}
+.checkbox input {
+    background-color: black !important;
+    border-color: white !important;
+}
+
 @media (min-width:600px) {
     .formMaxWidth {
         max-width: 31%;

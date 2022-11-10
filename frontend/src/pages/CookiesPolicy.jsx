@@ -25,6 +25,11 @@ const CookiesPolicy = () => {
           <td>Needed to prevent Cross-Site Request Forgery</td>
           <td>1 year</td>
         </tr>
+        <tr>
+          <td>_GRECAPTCHA</td>
+          <td>Needed to generate contact requests</td>
+          <td>6 months</td>
+        </tr>
         </tbody>
       </Table>
     </div>

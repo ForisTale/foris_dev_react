@@ -35,8 +35,23 @@ function ContactForm() {
       return [subject.isValid, message.isValid, agreement].every(valid => valid);
     };
     setFormIsValid(formValidation());
-
   }, [subject.isValid, message.isValid, agreement]);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${window.RECAPTCHA_SITE_KEY}`
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      const recaptchaBadge = document.getElementsByClassName('grecaptcha-badge');
+      document.body.removeChild(script);
+      if (recaptchaBadge.length) {
+        recaptchaBadge[0].remove();
+      }
+    }
+  }, []);
 
   const emailHandler = (event) => {
     emailDispatch({type: "input", text: event.target.value});
@@ -55,23 +70,28 @@ function ContactForm() {
   };
 
   const submitHandler = () => {
-    fetch(window.apiURLs.contact, {
-      method: "POST",
-      body: {
-        "subject": subject,
-        "email": email,
-        "message": message,
-      },
-      headers: {
-        "X-CSRFToken": getCSRFToken(),
-      },
-    }).then(response => response.json()).then(data => {
-      dispatch(importantMessagesActions.append(data.message));
-    }).catch(error => {
-      dispatch(importantMessagesActions.append([
-        "Service is unavailable at the moment. ",
-        "Please try a different method of contact."
-      ]));
+    window.grecaptcha.ready(() => {
+      window.grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: "contact"}).then(token => {
+        fetch(window.apiURLs.contact, {
+          method: "POST",
+          body: {
+            "subject": subject,
+            "email": email,
+            "message": message,
+            "recaptcha": token,
+          },
+          headers: {
+            "X-CSRFToken": getCSRFToken(),
+          },
+        }).then(response => response.json()).then(data => {
+          dispatch(importantMessagesActions.append(data.message));
+        }).catch(error => {
+          dispatch(importantMessagesActions.append([
+            "Service is unavailable at the moment. ",
+            "Please try a different method of contact."
+          ]));
+        });
+      })
     });
   };
 

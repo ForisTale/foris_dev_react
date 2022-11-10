@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Foris.dev",
+  "name": "Foris.dev",
+  "version": "1.0",
+  "manifest_version": 2,
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +12,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#17a2b8",
+  "background_color": "#000000FF"
 }

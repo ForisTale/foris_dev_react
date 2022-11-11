@@ -1,6 +1,7 @@
 import Form from "react-bootstrap/Form";
 import classes from "./ContactForm.module.css";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import {useState, useReducer, useEffect} from "react";
 import getCSRFToken from "../inventory/getCSRFToken";
 import {importantMessagesActions} from "../store/importantMessages-slice";
@@ -17,8 +18,10 @@ const inputReducer = (state, action) => {
   switch (action.type) {
     case "input":
       return {text: action.text, isValid: action.text !== ""};
+    case "clear":
+      return initialInputState;
     default :
-      throw new Error();
+      throw new Error("Invalid reducer input");
   }
 };
 
@@ -28,6 +31,7 @@ function ContactForm() {
   const [message, messageDispatch] = useReducer(inputReducer, initialInputState);
   const [agreement, setAgreement] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,21 +74,28 @@ function ContactForm() {
   };
 
   const submitHandler = () => {
+    setIsSending(true);
     window.grecaptcha.ready(() => {
       window.grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: "contact"}).then(token => {
         fetch(window.apiURLs.contact, {
           method: "POST",
-          body: {
-            "subject": subject,
-            "email": email,
-            "message": message,
+          body: JSON.stringify({
+            "subject": subject.text,
+            "email": email.text,
+            "message": message.text,
             "recaptcha": token,
-          },
+          }),
           headers: {
             "X-CSRFToken": getCSRFToken(),
+            "contentType": "application/json",
           },
         }).then(response => response.json()).then(data => {
           dispatch(importantMessagesActions.append(data.message));
+          emailDispatch({type: "clear"});
+          subjectDispatch({type: "clear"});
+          messageDispatch({type: "clear"});
+          setAgreement(false);
+          setIsSending(false);
         }).catch(error => {
           dispatch(importantMessagesActions.append([
             "Service is unavailable at the moment. ",
@@ -131,10 +142,28 @@ function ContactForm() {
           type={"checkbox"}
           label={<p>I have read and agree to <Link to={MainPageURLs.privacyPolicy}>Privacy Policy</Link></p>}
           onChange={checkboxHandler}
+          checked={agreement}
         />
       </Form.Group>
       <Form.Group className={classes.formButton}>
-        <Button disabled={!formIsValid} className={classes.button} onClick={submitHandler}>Submit</Button>
+        {isSending
+          ? <Button className={classes.button}>
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            Sending...
+          </Button>
+          : <Button
+            disabled={!formIsValid}
+            className={classes.button}
+            onClick={submitHandler}
+            id={"submit"}
+          >Submit</Button>
+        }
       </Form.Group>
     </Form>
   );

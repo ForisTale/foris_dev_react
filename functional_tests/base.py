@@ -76,7 +76,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def dump_html(self):
         filename = self._get_filename() + ".html"
         print("dumping page HTML to", filename)
-        with open(filename, "w") as file:
+        with open(filename, "w", encoding="utf-8") as file:
             file.write(self.driver.page_source)
 
     def dump_logs(self):

@@ -47,7 +47,13 @@ class MainPageBasicTest(FunctionalTest):
         self.check_link_send_to_correct_url("Foris.dev", "/")
 
     @patch("api.views.send_mail")
-    def test_contact_allow_to_send_email_to_administrator(self, mock_send_email):
+    @patch("utils.check_recaptcha.recaptcha_request")
+    def test_contact_allow_to_send_email_to_administrator(self, recaptcha_request_patch, mock_send_email):
+        class FakeResponse:
+            def __init__(self):
+                self.content = b'{"success": true, "score": 1.0}'
+        recaptcha_request_patch.post.return_value = FakeResponse()
+
         # Foris want sent message to page admin,
         # so he clicked contact
         self.wait_for(lambda: self.driver.find_element(By.LINK_TEXT, "Contact").click())
@@ -57,9 +63,10 @@ class MainPageBasicTest(FunctionalTest):
         self.wait_for(lambda: self.driver.find_element(By.ID, "formEmail").send_keys("test@test.com"))
         self.driver.find_element(By.ID, "formSubject").send_keys("Subject")
         self.driver.find_element(By.ID, "formMessage").send_keys("Message")
+        self.driver.find_element(By.CLASS_NAME, "form-check-input").click()
 
         # then send it
-        self.driver.find_element(By.CLASS_NAME, "btn").click()
+        self.driver.find_element(By.ID, "submit").click()
 
         self.wait_for(lambda: mock_send_email.assert_called_once())
 

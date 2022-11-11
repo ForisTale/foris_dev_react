@@ -134,3 +134,17 @@ if is_deployed():
 else:
     RECAPTCHA_SITE_KEY = secret["recaptcha_site_key"]
     RECAPTCHA_SECRET_KEY = secret["recaptcha_secret_key"]
+
+
+# E-mail settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+if is_deployed():
+    EMAIL_HOST_USER = "foris.dev@gmail.com"
+    EMAIL_HOST_PASSWORD = secret["email_host_pass"]
+else:
+    EMAIL_HOST_USER = ""
+    EMAIL_HOST_PASSWORD = ""

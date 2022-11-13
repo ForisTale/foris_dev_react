@@ -77,10 +77,10 @@
     chdir: "{{ site_folder }}/frontend/"
   ansible.builtin.command: npm run build
 
-#- name: Update static files.
-#  ansible.builtin.command: ./virtualenv/bin/python manage.py collectstatic --noinput
-#  args:
-#    chdir: "{{ site_folder }}"
+- name: Update static files.
+  ansible.builtin.command: ./virtualenv/bin/python manage.py collectstatic --noinput
+  args:
+    chdir: "{{ site_folder }}"
 
 - name: Update database.
   ansible.builtin.command: ./virtualenv/bin/python manage.py migrate --noinput

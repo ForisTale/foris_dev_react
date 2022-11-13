@@ -1,0 +1,11 @@
+- name: restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+
+- name: restart gunicorn
+  ansible.builtin.systemd:
+    name: gunicorn-{{ ansible_host }}
+    daemon_reload: yes
+    enabled: yes
+    state: restarted

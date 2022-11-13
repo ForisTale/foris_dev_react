@@ -1,0 +1,89 @@
+- name: Deadsnakes PPA to get Python 3.10
+  ansible.builtin.apt_repository:
+    repo: ppa:deadsnakes/ppa
+
+- name: make sure required packages are installed
+  ansible.builtin.apt:
+    name: ["nginx", "git", "python3.10", "python3.10-venv"]
+    state: present
+    update_cache: yes
+
+- name: Create site folders.
+  ansible.builtin.file:
+    path: "{{ site_folder }}"
+    state: directory
+
+- name: Check if .git exists.
+  ansible.builtin.stat:
+    path: "{{ site_folder }}/.git"
+  register: git_exists
+
+- name: If .git exists fetch repository.
+  ansible.builtin.command: git fetch
+  args:
+     chdir: "{{ site_folder }}"
+  when: git_exists.stat.exists == True
+
+- name: If .git don't exist clone repository
+  ansible.builtin.command: git clone {{ repo_url }} .
+  args:
+    chdir: "{{ site_folder }}"
+  when: git_exists.stat.exists == False
+
+- name: Get local hash commit.
+  local_action: command git log -n 1 --format=%H
+  register: commmit_hash
+
+- name: Reset git to actualy used commit.
+  ansible.builtin.command: git reset --hard {{ commmit_hash.stdout }}
+  args:
+    chdir: "{{ site_folder }}"
+
+- name: Check if virtualenv exists.
+  ansible.builtin.stat:
+    path: "{{ site_folder }}/virtualenv/bin/pip"
+  register: venv_exists
+
+- name: If virtualenv don't exist set it up.
+  ansible.builtin.command: python3 -m venv virtualenv
+  args:
+    chdir: "{{ site_folder }}"
+  when: venv_exists.stat.exists == False
+
+- name: Update requirements.
+  ansible.builtin.command: ./virtualenv/bin/pip install -r requirements_productions.txt
+  args:
+    chdir: "{{ site_folder }}"
+
+- name: Check if deployment_settings exists
+  ansible.builtin.stat:
+    path: "{{ site_folder }}/deployment_settings.yaml"
+  register: settings_exists
+
+- name: Generate deployment_settings
+  ansible.builtin.script: generate_deployment_settings.py
+  args:
+    chdir: "{{ site_folder }}/deploy_tools/"
+    executable: python3
+  when: settings_exists.stat.exists == False
+
+- name: Build react app
+  ansible.builtin.command: npm run build
+  args:
+    chdir: "{{ site_folder }}/frontend/"
+
+- name: Update static files.
+  ansible.builtin.command: ./virtualenv/bin/python manage.py collectstatic --noinput
+  args:
+    chdir: "{{ site_folder }}"
+
+- name: Update database.
+  ansible.builtin.command: ./virtualenv/bin/python manage.py migrate --noinput
+  args:
+    chdir: "{{ site_folder }}"
+
+- name: Change ownership of all files and folders.
+  ansible.builtin.file:
+    owner: "{{ ansible_user }}"
+    path: "{{ site_folder }}"
+    recurse: yes

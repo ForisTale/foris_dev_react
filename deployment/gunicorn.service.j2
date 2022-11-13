@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn server for {{ ansible_host }}
+
+[Service]
+Restart=on-failure
+User={{ ansible_user }}
+WorkingDirectory=/home/{{ ansible_user }}/sites/{{ ansible_host }}
+
+ExecStart=/home/{{ ansible_user }}/sites/{{ ansible_host }}/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/{{ ansible_host }}.socket \
+    --access-logfile ../access.log \
+    --error-logfile ../error.log \
+    {{ project_dir }}.wsgi
+
+[Install]
+WantedBy=multi-user.target

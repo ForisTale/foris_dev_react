@@ -11,27 +11,34 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import os
-from utils.is_deployed import is_deployed
+from utils.check_is_deployed import check_is_deployed
 import yaml
 
 
 with open("../.secret") as secret_file:
     secret = yaml.safe_load(secret_file)
 
+is_deployed = check_is_deployed()
+
+if is_deployed:
+    with open("./deployment_settings.yaml", "r") as settings_file:
+        deployment_settings = yaml.safe_load(settings_file)
+    SECRET_KEY = deployment_settings["DJANGO_SECRET_KEY"]
+    ALLOWED_HOSTS = [deployment_settings["SITE_NAME"]]
+    DEBUG = False
+    DATABASE_NAME = deployment_settings.get("DATABASE_NAME")
+else:
+    DEBUG = True
+    SECRET_KEY = "insecure-key-for-dev"
+    ALLOWED_HOSTS = ["*"]
+    DATABASE_NAME = "test_database"
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&4xdhqa)c-*70867su8^e$xl5$%0&xoku(ki17_@%x6l6si%tj'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -86,6 +93,15 @@ DATABASES = {
     }
 }
 
+# ReCaptcha
+if is_deployed:
+    RECAPTCHA_SITE_KEY = secret[f"recaptcha_{DATABASE_NAME}_site_key"]
+    RECAPTCHA_SECRET_KEY = secret[f"recaptcha_{DATABASE_NAME}_secret_key"]
+else:
+    RECAPTCHA_SITE_KEY = secret["recaptcha_site_key"]
+    RECAPTCHA_SECRET_KEY = secret["recaptcha_secret_key"]
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -126,15 +142,6 @@ STATICFILES_DIRS = [BASE_DIR / "frontend" / "build" / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-database_name = "test_database"
-# ReCaptcha
-if is_deployed():
-    RECAPTCHA_SITE_KEY = secret[f"recaptcha_{database_name}_site_key"]
-    RECAPTCHA_SECRET_KEY = secret[f"recaptcha_{database_name}_secret_key"]
-else:
-    RECAPTCHA_SITE_KEY = secret["recaptcha_site_key"]
-    RECAPTCHA_SECRET_KEY = secret["recaptcha_secret_key"]
-
 
 # E-mail settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -142,8 +149,8 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-if is_deployed():
-    EMAIL_HOST_USER = "foris.dev@gmail.com"
+if is_deployed:
+    EMAIL_HOST_USER = secret.get("email_host_user")
     EMAIL_HOST_PASSWORD = secret["email_host_pass"]
 else:
     EMAIL_HOST_USER = ""

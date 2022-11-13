@@ -1,0 +1,7 @@
+all:
+  hosts:
+    main:
+      ansible_host: foris.dev
+      ansible_become: yes
+      ansible_user: Eien
+      database_name: foris_dev

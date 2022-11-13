@@ -51,7 +51,7 @@
   when: venv_exists.stat.exists == False
 
 - name: Update requirements.
-  ansible.builtin.command: ./virtualenv/bin/pip install -r requirements_productions.txt
+  ansible.builtin.command: ./virtualenv/bin/pip install -r requirements_production.txt
   args:
     chdir: "{{ site_folder }}"
 
@@ -63,19 +63,24 @@
 - name: Generate deployment_settings
   ansible.builtin.script: generate_deployment_settings.py
   args:
-    chdir: "{{ site_folder }}/deploy_tools/"
+    chdir: "{{ site_folder }}/deployment/"
     executable: python3
   when: settings_exists.stat.exists == False
 
-- name: Build react app
-  ansible.builtin.command: npm run build
+- name: Install react app
   args:
     chdir: "{{ site_folder }}/frontend/"
+  ansible.builtin.command: npm install
 
-- name: Update static files.
-  ansible.builtin.command: ./virtualenv/bin/python manage.py collectstatic --noinput
+- name: Build react app
   args:
-    chdir: "{{ site_folder }}"
+    chdir: "{{ site_folder }}/frontend/"
+  ansible.builtin.command: npm run build
+
+#- name: Update static files.
+#  ansible.builtin.command: ./virtualenv/bin/python manage.py collectstatic --noinput
+#  args:
+#    chdir: "{{ site_folder }}"
 
 - name: Update database.
   ansible.builtin.command: ./virtualenv/bin/python manage.py migrate --noinput

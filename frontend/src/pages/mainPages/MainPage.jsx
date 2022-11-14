@@ -2,7 +2,7 @@ import classes from "./MainPage.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Link} from "react-router-dom";
-import {MainPageURLs} from "../inventory/mainPageURLs";
+import {MainPageURLs} from "../../inventory/mainPageURLs";
 
 const MainPage = () => {
   return (

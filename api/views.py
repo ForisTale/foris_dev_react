@@ -1,6 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 from django.core.mail import send_mail
+from django.utils import html
 from smtplib import SMTPException
 from utils.check_recaptcha import check_recaptcha
 import json
@@ -16,8 +17,10 @@ def contact(request):
         try:
             body_unicode = request.body.decode('utf-8')
             received_json = json.loads(body_unicode)
-            email_message = f"Subject: {received_json.get('subject')}\nEmail: {received_json.get('email')} " \
-                            f"\nMessage: {received_json.get('message')}"
+            subject = html.escape(received_json.get("subject"))
+            email = html.escape(received_json.get("email"))
+            message = html.escape(received_json.get("message"))
+            email_message = f"Subject: {subject}\nEmail: {email}\nMessage: {message}"
             send_mail("Message from foris.dev", email_message, "",
                       ["foris.dev@gmail.com"])
             return JsonResponse({"message": "Message was sent!"})

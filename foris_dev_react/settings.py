@@ -23,15 +23,17 @@ is_deployed = check_is_deployed()
 if is_deployed:
     with open("./deployment_settings.yaml", "r") as settings_file:
         deployment_settings = yaml.safe_load(settings_file)
-    SECRET_KEY = deployment_settings["DJANGO_SECRET_KEY"]
-    ALLOWED_HOSTS = [deployment_settings["SITE_NAME"]]
+    SECRET_KEY = deployment_settings.get("DJANGO_SECRET_KEY")
+    ALLOWED_HOSTS = [deployment_settings.get("SITE_NAME")]
     DEBUG = False
     DATABASE_NAME = deployment_settings.get("DATABASE_NAME")
+    SITE_ADDRESS = f"https://{deployment_settings.get('SITE_NAME')}"
 else:
     DEBUG = True
     SECRET_KEY = "insecure-key-for-dev"
     ALLOWED_HOSTS = ["*"]
     DATABASE_NAME = "test_database"
+    SITE_ADDRESS = "http://http://127.0.0.1:8000/"
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -156,3 +158,6 @@ if is_deployed:
 else:
     EMAIL_HOST_USER = ""
     EMAIL_HOST_PASSWORD = ""
+
+
+CSRF_TRUSTED_ORIGINS = [SITE_ADDRESS]

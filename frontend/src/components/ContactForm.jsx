@@ -73,6 +73,14 @@ function ContactForm() {
     setAgreement(prevState => !prevState);
   };
 
+  const clearForm = () => {
+    emailDispatch({type: "clear"});
+    subjectDispatch({type: "clear"});
+    messageDispatch({type: "clear"});
+    setAgreement(false);
+    setIsSending(false);
+  };
+
   const submitHandler = () => {
     setIsSending(true);
     window.grecaptcha.ready(() => {
@@ -91,16 +99,13 @@ function ContactForm() {
           },
         }).then(response => response.json()).then(data => {
           dispatch(importantMessagesActions.append(data.message));
-          emailDispatch({type: "clear"});
-          subjectDispatch({type: "clear"});
-          messageDispatch({type: "clear"});
-          setAgreement(false);
-          setIsSending(false);
+          clearForm();
         }).catch(error => {
           dispatch(importantMessagesActions.append([
             "Service is unavailable at the moment. ",
             "Please try a different method of contact."
           ]));
+          clearForm();
         });
       })
     });

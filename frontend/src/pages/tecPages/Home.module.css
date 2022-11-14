@@ -1,0 +1,20 @@
+.link {
+    text-decoration: none;
+}
+
+.main {
+    min-width: 400px;
+}
+.main h4{
+    margin: 25px;
+    text-align: center;
+}
+
+.main p{
+    text-align: justify;
+}
+
+.title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

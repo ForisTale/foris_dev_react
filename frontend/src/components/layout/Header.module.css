@@ -20,4 +20,5 @@
 .nav {
     width: 100%;
     justify-content: space-around;
+    margin-left: 10px;
 }

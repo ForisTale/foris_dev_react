@@ -12,7 +12,7 @@ const Header = (props) => {
 
   return (
     <header className={classes.linkColor}>
-      <Navbar expand={"md"} className={classes.navbar}>
+      <Navbar collapseOnSelect expand={"md"} className={classes.navbar}>
         <LinkContainer to={MainPageURLs.mainPage}>
           <Navbar.Brand className={classes.navBrand}>Foris.dev</Navbar.Brand>
         </LinkContainer>

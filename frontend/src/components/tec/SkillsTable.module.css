@@ -1,0 +1,29 @@
+.table {
+    color: #17a2b8 !important;
+    background-color: #343a40 !important;
+}
+
+.input {
+    height: 25px;
+    width: 35px;
+    background-color: black;
+    color: #17a2b8;
+}
+
+.multiplier {
+    display: flex;
+    justify-content: center;
+}
+
+.multiplier input {
+    background-color: black !important;
+    border: gray solid 1px !important;
+}
+
+.rowBorder {
+    border-top: grey solid 1px;
+}
+
+.skillName {
+    white-space: nowrap;
+}

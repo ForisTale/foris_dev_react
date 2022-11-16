@@ -1,0 +1,120 @@
+{
+    "Altmer": {
+        "Magic": {
+            "illusion": 10,
+            "alteration": 5,
+            "conjuration": 5,
+            "destruction": 5,
+            "enchanting": 5,
+            "restoration": 5
+        }
+    },
+    "Argonian": {
+        "Magic": {
+            "alteration": 5,
+            "restoration": 5
+        },
+        "Stealth": {
+            "lockpicking": 10,
+            "lightarmor": 5,
+            "pickpocket": 5,
+            "sneak": 5
+        }
+    },
+    "Bosmer": {
+        "Combat": {
+            "marksman": 10
+        },
+        "Stealth": {
+            "alchemy": 5,
+            "lightarmor": 5,
+            "lockpicking": 5,
+            "pickpocket": 5,
+            "sneak": 5
+        }
+    },
+    "Breton": {
+        "Magic": {
+            "conjuration": 10,
+            "alteration": 5,
+            "illusion": 5,
+            "restoration": 5
+        },
+        "Stealth": {
+            "alchemy": 5,
+            "speechcraft": 5
+        }
+    },
+    "Dunmer": {
+        "Magic": {
+            "destruction": 10,
+            "alteration": 5,
+            "illusion": 5
+        },
+        "Stealth": {
+            "alchemy": 5,
+            "lightarmor": 5,
+            "sneak": 5
+        }
+    },
+    "Imperial": {
+        "Magic": {
+            "restoration": 10,
+            "destruction": 5,
+            "enchanting": 5
+        },
+        "Combat": {
+            "block": 5,
+            "heavyarmor": 5,
+            "onehanded": 5
+        }
+    },
+    "Khajiit": {
+        "Stealth": {
+            "sneak": 10,
+            "alchemy": 5,
+            "lockpicking": 5,
+            "pickpocket": 5
+        },
+        "Combat":{
+            "marksman": 5,
+            "onehanded": 5
+        }
+    },
+    "Nord": {
+        "Combat": {
+            "twohanded": 10,
+            "block": 5,
+            "onehanded": 5,
+            "smithing": 5
+        },
+        "Stealth": {
+            "speechcraft": 5,
+            "lightarmor": 5
+        }
+    },
+    "Ork": {
+        "Combat": {
+            "heavyarmor": 10,
+            "block": 5,
+            "onehanded": 5,
+            "smithing": 5,
+            "twohanded": 5
+        },
+        "Magic": {
+            "enchanting": 5
+        }
+    },
+    "Redguard": {
+        "Combat": {
+            "onehanded": 10,
+            "marksman": 5,
+            "block": 5,
+            "smithing": 5
+        },
+        "Magic": {
+            "alteration": 5,
+            "destruction": 5
+        }
+    }
+}

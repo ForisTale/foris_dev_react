@@ -21,7 +21,7 @@ const TecPageLayout = () => {
   }, []);
 
   return (
-    <Container>
+    <Container fluid={"xxl"}>
       <Header links={links}/>
       <Outlet/>
       <Footer/>

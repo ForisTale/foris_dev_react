@@ -1,0 +1,20 @@
+.button button {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: #343a40 !important;
+    color: #17a2b8 !important;
+    border: none !important;
+}
+
+.button div {
+    background-color: #343a40 !important;
+}
+
+.raceButton {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.raceButton:hover {
+    background-color: black !important;
+}

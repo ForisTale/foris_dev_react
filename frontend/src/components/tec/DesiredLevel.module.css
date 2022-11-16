@@ -1,0 +1,11 @@
+.input {
+    max-width: 35px;
+    background-color: black;
+    color: #17a2b8;
+}
+
+.fillSkills {
+    background-color: #343a40 !important;
+    color: #17a2b8 !important;
+    border: none !important;
+}

@@ -3,6 +3,9 @@
     justify-content: space-around;
     background-color: black;
 }
+.footerSeparator {
+    margin-top: 50px;
+}
 
 .link {
     text-decoration: none;

@@ -9,6 +9,10 @@ body {
   color: #17a2b8;
 }
 
+.grecaptcha-badge {
+    bottom:25px !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

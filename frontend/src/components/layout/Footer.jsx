@@ -5,11 +5,14 @@ import {MainPageURLs} from "../../inventory/mainPageURLs";
 
 const Footer = () => {
   return (
-    <div className={`${classes.footer} fixed-bottom`}>
-      <p>Foris.dev all rights reserved.</p>
-      <Link className={classes.link} to={MainPageURLs.cookiesPolicy}>Cookies Policy</Link>
-      <Link className={classes.link} to={MainPageURLs.privacyPolicy}>Privacy Policy</Link>
-    </div>
+    <>
+      <div className={classes.footerSeparator}/>
+      <footer className={`${classes.footer} fixed-bottom`}>
+        <h6>Foris.dev all rights reserved.</h6>
+        <Link className={classes.link} to={MainPageURLs.cookiesPolicy}>Cookies Policy</Link>
+        <Link className={classes.link} to={MainPageURLs.privacyPolicy}>Privacy Policy</Link>
+      </footer>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
-import calculateDefaultLevel from "./calculateDefaultLevel";
-import calculateDesiredLevel from "./calculateDesiredLevel";
+import calculateBaseLevel from "./skillsCalculations/calculateBaseLevel";
+import calculateDesiredLevel from "./skillsCalculations/calculateDesiredLevel";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
@@ -10,7 +10,7 @@ const EstimatedLevels = () => {
   const [desiredLevel, setDesiredLevel] = useState(1);
 
   useEffect(() => {
-    setBaseLevel(calculateDefaultLevel(race, skills));
+    setBaseLevel(calculateBaseLevel(race, skills));
     setDesiredLevel(calculateDesiredLevel(race, skills));
   }, [race, skills]);
 

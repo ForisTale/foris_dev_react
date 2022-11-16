@@ -2,7 +2,7 @@ import classes from "./SkillsTable.module.css"
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import {useDispatch} from "react-redux";
-import {tecSkillsActions} from "../../store/tecSkills-slice";
+import {tecSkillsActions} from "../../../store/tecSkills-slice";
 
 
 const SkillsTable = (props) => {

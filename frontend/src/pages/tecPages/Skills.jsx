@@ -1,12 +1,12 @@
-import RaceButton from "../../components/tec/RaceButton";
-import SkillsTables from "../../components/tec/SkillsTables";
-import Multiplier from "../../components/tec/Multiplier";
+import RaceButton from "../../components/tec/skills/RaceButton";
+import SkillsTables from "../../components/tec/skills/SkillsTables";
+import Multiplier from "../../components/tec/skills/Multiplier";
 import {useSelector} from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import BaseLevel from "../../components/tec/BaseLevel";
-import DesiredLevel from "../../components/tec/DesiredLevel";
-import GenerateSkillCommands from "../../components/tec/GenerateSkillCommands";
+import EstimatedLevels from "../../components/tec/skills/EstimatedLevels";
+import DesiredLevel from "../../components/tec/skills/DesiredLevel";
+import GenerateSkillCommands from "../../components/tec/skills/GenerateSkillCommands";
 
 
 const Skills = () => {
@@ -26,7 +26,7 @@ const Skills = () => {
           <Multiplier/>
         </Col>
         <Col className={"col-12 col-lg-4"}>
-          <BaseLevel/>
+          <EstimatedLevels/>
         </Col>
         <Col className={"col-12 col-lg-4"}>
           <DesiredLevel/>

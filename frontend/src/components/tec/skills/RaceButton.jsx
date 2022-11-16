@@ -2,7 +2,7 @@ import classes from "./RaceButton.module.css";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import {useDispatch} from "react-redux";
-import {tecSkillsActions} from "../../store/tecSkills-slice";
+import {tecSkillsActions} from "../../../store/tecSkills-slice";
 
 
 const RaceButton = () => {

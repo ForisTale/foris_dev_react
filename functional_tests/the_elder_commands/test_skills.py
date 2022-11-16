@@ -65,10 +65,14 @@ class SkillsTest(FunctionalTest):
             "1"
         )
 
-        # next to it are two boxes, one with calculated lvl
+        # next to it are two boxes, one with calculated lvl and estimated desired level
         self.assertEqual(
             self.driver.find_element(By.ID, "base_level").text,
             "Base level: 1"
+        )
+        self.assertEqual(
+            self.driver.find_element(By.ID, "estimated_desired_level").text,
+            "Estimated desired level: 1"
         )
 
         # and other with desired lvl.

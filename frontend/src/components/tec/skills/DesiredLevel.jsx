@@ -14,6 +14,7 @@ const DesiredLevel = () => {
   };
 
   const fillSkillHandler = () => {
+    dispatch(tecSkillsActions.fillSkillsToDesiredLevel());
   };
 
   return (

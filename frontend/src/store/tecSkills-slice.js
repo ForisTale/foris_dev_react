@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import baseSkillsForRace from "../inventory/tec/baseSkillsForRace";
+import fillSkillsToDesiredLevel from "./fillSkillsToDesiredLevel";
 
 const tecSkillsSlice = createSlice({
   name: "tecSkills",
@@ -35,6 +36,7 @@ const tecSkillsSlice = createSlice({
     setDesiredLevel: (state, action) => {
       state.desiredLevel = action.payload;
     },
+    fillSkillsToDesiredLevel,
   },
 });
 

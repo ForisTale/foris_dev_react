@@ -1,9 +1,14 @@
 import calculateExpNeededForLvl from "../components/tec/skills/skillsCalculations/calculateExpNeededForLvl";
 import calculateBaseLevel from "../components/tec/skills/skillsCalculations/calculateBaseLevel";
 import baseSkillsForRace from "../inventory/tec/baseSkillsForRace";
+import calculateDesiredLevel from "../components/tec/skills/skillsCalculations/calculateDesiredLevel";
 
 const fillSkillsToDesiredLevel = (state) => {
-  let neededExp = calculateExpNeededForLvl(calculateBaseLevel(state.race, state.skills), state.desiredLevel);
+  const baseLevel = Math.max(
+    calculateBaseLevel(state.race, state.skills),
+    calculateDesiredLevel(state.race, state.skills)
+  );
+  let neededExp = calculateExpNeededForLvl(baseLevel, state.desiredLevel);
   const defaultSkills = baseSkillsForRace(state.race);
   const skillsFilled = [];
   const multiplierValues = {};
@@ -13,13 +18,20 @@ const fillSkillsToDesiredLevel = (state) => {
     for (const [category, skills] of Object.entries(state.skills)) {
       for (const [skillName, skillDetails] of Object.entries(skills)) {
         let desiredSkillLevel = parseInt(skillDetails.desiredSkillLevel)
-          || parseInt(skillDetails.defaultSkillLevel
-            || parseInt(defaultSkills[category][skillName].defaultSkillLevel));
+          || parseInt(skillDetails.defaultSkillLevel)
+          || parseInt(defaultSkills[category][skillName].defaultSkillLevel);
+
+        if (desiredSkillLevel >= 100) {
+          if (desiredSkillLevel > 100) skillDetails.desiredSkillLevel = 100;
+          if (!skillsFilled.includes(skillName)) {
+            skillsFilled.push(skillName);
+          }
+          continue;
+        }
+
+
         let value = multiplierValues[skillName] || 1;
-
         while (value >= 1) {
-          if (skillsFilled.includes(skillName)) break;
-
           desiredSkillLevel += 1;
           skillDetails.desiredSkillLevel = desiredSkillLevel;
           neededExp -= desiredSkillLevel;

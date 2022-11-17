@@ -46,9 +46,38 @@ describe("Testing filling skills to desired level", () => {
     expect(state).toEqual(result);
   });
 
+  test("calling fillSkills many times didn't change skills", () => {
+    const result = {
+      race: "Nord",
+      skills: skills,
+      multiplier: "1",
+      desiredLevel: "10",
+    }
+
+    fillSkillsToDesiredLevel(state);
+    fillSkillsToDesiredLevel(state);
+    expect(state).toEqual(result);
+  });
+
+  test("having skill at 100 will keep it at 100", () => {
+    state.desiredLevel = "20";
+    state.skills.Combat.block.desiredSkillLevel = 100;
+
+    fillSkillsToDesiredLevel(state);
+    expect(state.skills.Combat.block.desiredSkillLevel).toEqual(100);
+  });
+
+  test("if skill is over 100 it will be roll down to 100", () => {
+    state.desiredLevel = "20";
+    state.skills.Combat.block.desiredSkillLevel = 101;
+
+    fillSkillsToDesiredLevel(state);
+    expect(state.skills.Combat.block.desiredSkillLevel).toEqual(100);
+  });
+
   test("ignore NaN base skills values", () => {
-    skills.Magic.alteration.defaultSkillLevel = "";
-    state.skills.Magic.alteration.defaultSkillLevel = "";
+    skills.Magic.alteration.defaultSkillLevel = "a";
+    state.skills.Magic.alteration.defaultSkillLevel = "a";
     const result = {
       race: "Nord",
       skills: skills,

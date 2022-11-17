@@ -6,9 +6,9 @@ describe("testing calculate desired level", () => {
   test("can estimate desired level", () => {
     const race = "Altmer";
     const skills = baseSkillsForRace(race);
-    skills.Combat.marksman.desired_value = 20;
-    skills.Stealth.sneak.desired_value = 20;
-    skills.Stealth.alchemy.desired_value = 20;
+    skills.Combat.marksman.desiredSkillLevel = 20;
+    skills.Stealth.sneak.desiredSkillLevel = 20;
+    skills.Stealth.alchemy.desiredSkillLevel = 20;
 
     expect(calculateDesiredLevel(race, skills)).toBe(3);
   });
@@ -23,10 +23,10 @@ describe("testing calculate desired level", () => {
   test("take in account base skills when calculate desired level", () => {
     const race = "Altmer";
     const baseSkills = baseSkillsForRace(race);
-    baseSkills.Combat.marksman.desired_value = 20;
-    baseSkills.Stealth.sneak.desired_value = 20;
-    baseSkills.Stealth.alchemy.desired_value = 20;
-    baseSkills.Combat.block.default_value = 50;
+    baseSkills.Combat.marksman.desiredSkillLevel = 20;
+    baseSkills.Stealth.sneak.desiredSkillLevel = 20;
+    baseSkills.Stealth.alchemy.desiredSkillLevel = 20;
+    baseSkills.Combat.block.defaultSkillLevel = 50;
 
     expect(calculateDesiredLevel(race, baseSkills)).toBe(8);
   });
@@ -34,10 +34,10 @@ describe("testing calculate desired level", () => {
   test("ignore desired values when they are smaller than default", () => {
     const race = "Altmer";
     const baseSkills = baseSkillsForRace(race);
-    baseSkills.Combat.marksman.desired_value = "10";
-    baseSkills.Combat.smithing.desired_value = "100";
-    baseSkills.Stealth.sneak.desired_value = "10";
-    baseSkills.Stealth.alchemy.desired_value = "10";
+    baseSkills.Combat.marksman.desiredSkillLevel = "10";
+    baseSkills.Combat.smithing.desiredSkillLevel = "100";
+    baseSkills.Stealth.sneak.desiredSkillLevel = "10";
+    baseSkills.Stealth.alchemy.desiredSkillLevel = "10";
 
     expect(calculateDesiredLevel(race, baseSkills)).toBe(17);
   });
@@ -45,7 +45,7 @@ describe("testing calculate desired level", () => {
   test("round to 100 then value if bigger than 100", () => {
     const race = "Altmer";
     const baseSkills = baseSkillsForRace(race);
-    baseSkills.Combat.smithing.desired_value = "200";
+    baseSkills.Combat.smithing.desiredSkillLevel = "200";
 
     expect(calculateDesiredLevel(race, baseSkills)).toBe(17);
   });

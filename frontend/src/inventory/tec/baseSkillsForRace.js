@@ -10,9 +10,9 @@ const baseSkillsForRace = (race) => {
 
   for (const category in extraSkills) {
     for (const skill in extraSkills[category]) {
-      const defaultValue = parseInt(skills[category][skill]["default_value"]);
+      const defaultValue = parseInt(skills[category][skill]["defaultSkillLevel"]);
       const extraValue = parseInt(extraSkills[category][skill])
-      skills[category][skill]["default_value"] = (defaultValue + extraValue).toString();
+      skills[category][skill]["defaultSkillLevel"] = (defaultValue + extraValue).toString();
     }
   }
   return skills;

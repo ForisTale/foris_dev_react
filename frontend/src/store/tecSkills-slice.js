@@ -23,12 +23,12 @@ const tecSkillsSlice = createSlice({
     setSkillDefaultValue: (state, action) => {
       const category = action.payload.category;
       const skillName = action.payload.name;
-      state.skills[category][skillName].default_value = action.payload.value;
+      state.skills[category][skillName].defaultSkillLevel = action.payload.value;
     },
     setSkillDesiredValue: (state, action) => {
       const category = action.payload.category;
       const skillName = action.payload.name;
-      state.skills[category][skillName].desired_value = action.payload.value;
+      state.skills[category][skillName].desiredSkillLevel = action.payload.value;
     },
     setMultiplierValue: (state, action) => {
       state.multiplier = action.payload;

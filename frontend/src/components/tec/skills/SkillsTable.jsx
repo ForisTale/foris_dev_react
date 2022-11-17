@@ -45,13 +45,13 @@ const SkillsTable = (props) => {
         <td className={classes.skillName}>{props.skills[skillName].name}</td>
         <td><input
           id={`${skillName}_base`}
-          value={props.skills[skillName].default_value}
+          value={props.skills[skillName].defaultSkillLevel}
           onChange={defaultValueHandler.bind(null, props.skillCategory, skillName)}
           className={classes.input}
         /></td>
         <td><input
           id={`${skillName}_desired`}
-          value={props.skills[skillName].desired_value}
+          value={props.skills[skillName].desiredSkillLevel}
           onChange={desiredValueHandler.bind(null, props.skillCategory, skillName)}
           className={classes.input}
         /></td>

@@ -6,10 +6,10 @@ const calculateBaseLevel = (race, baseSkills) => {
   let totalExp = 0;
 
   for (const [category, skills] of Object.entries(baseSkills)) {
-    for (const [name, skill] of Object.entries(skills)) {
+    for (const [skillName, skill] of Object.entries(skills)) {
 
-      const defaultSkillLevel = parseInt(defaultSkills[category][name]["default_value"]);
-      const baseSkillLevel = parseInt(skill.default_value);
+      const defaultSkillLevel = parseInt(defaultSkills[category][skillName]["defaultSkillLevel"]);
+      const baseSkillLevel = parseInt(skill.defaultSkillLevel);
 
       totalExp += calculateSkillExp(baseSkillLevel, defaultSkillLevel);
     }

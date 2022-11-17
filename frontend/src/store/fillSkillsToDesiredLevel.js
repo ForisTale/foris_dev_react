@@ -12,16 +12,16 @@ const fillSkillsToDesiredLevel = (state) => {
 
     for (const [category, skills] of Object.entries(state.skills)) {
       for (const [skillName, skillDetails] of Object.entries(skills)) {
-        let desiredSkillLevel = parseInt(skillDetails.desired_level)
-          || parseInt(skillDetails.default_value
-            || parseInt(defaultSkills[category][skillName].default_value));
+        let desiredSkillLevel = parseInt(skillDetails.desiredSkillLevel)
+          || parseInt(skillDetails.defaultSkillLevel
+            || parseInt(defaultSkills[category][skillName].defaultSkillLevel));
         let value = multiplierValues[skillName] || 1;
 
         while (value >= 1) {
           if (skillsFilled.includes(skillName)) break;
 
           desiredSkillLevel += 1;
-          skillDetails.desired_level = desiredSkillLevel;
+          skillDetails.desiredSkillLevel = desiredSkillLevel;
           neededExp -= desiredSkillLevel;
           value -= 1;
           if (desiredSkillLevel === 100) skillsFilled.push(skillName);

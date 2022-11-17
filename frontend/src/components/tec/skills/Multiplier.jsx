@@ -1,6 +1,6 @@
 import classes from "./Multiplier.module.css";
 import {useSelector, useDispatch} from "react-redux";
-import {tecSkillsActions} from "../../../store/tecSkills-slice";
+import {tecSkillsActions} from "../../../store/tecSkills/tecSkills-slice";
 
 
 const Multiplier = () => {

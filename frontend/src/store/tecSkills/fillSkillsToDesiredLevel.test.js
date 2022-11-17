@@ -1,5 +1,5 @@
 import fillSkillsToDesiredLevel from "./fillSkillsToDesiredLevel";
-import baseSkillsForRace from "../inventory/tec/baseSkillsForRace";
+import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
 
 describe("Testing filling skills to desired level", () => {
   let state;
@@ -35,7 +35,7 @@ describe("Testing filling skills to desired level", () => {
   });
 
   test("can fill skill till level 10", () => {
-    const result = {
+    const expected = {
       race: "Nord",
       skills: skills,
       multiplier: "1",
@@ -43,11 +43,11 @@ describe("Testing filling skills to desired level", () => {
     }
 
     fillSkillsToDesiredLevel(state);
-    expect(state).toEqual(result);
+    expect(state).toEqual(expected);
   });
 
   test("calling fillSkills many times didn't change skills", () => {
-    const result = {
+    const expected = {
       race: "Nord",
       skills: skills,
       multiplier: "1",
@@ -56,7 +56,7 @@ describe("Testing filling skills to desired level", () => {
 
     fillSkillsToDesiredLevel(state);
     fillSkillsToDesiredLevel(state);
-    expect(state).toEqual(result);
+    expect(state).toEqual(expected);
   });
 
   test("having skill at 100 will keep it at 100", () => {
@@ -78,7 +78,7 @@ describe("Testing filling skills to desired level", () => {
   test("ignore NaN base skills values", () => {
     skills.Magic.alteration.defaultSkillLevel = "a";
     state.skills.Magic.alteration.defaultSkillLevel = "a";
-    const result = {
+    const expected = {
       race: "Nord",
       skills: skills,
       multiplier: "1",
@@ -86,7 +86,7 @@ describe("Testing filling skills to desired level", () => {
     }
 
     fillSkillsToDesiredLevel(state);
-    expect(state).toEqual(result);
+    expect(state).toEqual(expected);
   });
 
   test("fill skills only up to 100", () => {
@@ -108,7 +108,7 @@ describe("Testing filling skills to desired level", () => {
     skills.Stealth.pickpocket.desiredSkillLevel = 100;
     skills.Stealth.sneak.desiredSkillLevel = 100;
     skills.Stealth.speechcraft.desiredSkillLevel = 100;
-    const result = {
+    const expected = {
       race: "Nord",
       skills: skills,
       multiplier: "1",
@@ -117,7 +117,7 @@ describe("Testing filling skills to desired level", () => {
     state.desiredLevel = "100";
 
     fillSkillsToDesiredLevel(state);
-    expect(state).toEqual(result);
+    expect(state).toEqual(expected);
   });
 
   test("when multiplier check, fills skill x time more often", () => {
@@ -140,7 +140,7 @@ describe("Testing filling skills to desired level", () => {
     skills.Stealth.sneak.desiredSkillLevel = 20;
     skills.Stealth.speechcraft.desiredSkillLevel = 25;
     skills.Combat.block.multiplier = true;
-    const result = {
+    const expected = {
       race: "Nord",
       skills: skills,
       multiplier: "1.5",
@@ -150,7 +150,7 @@ describe("Testing filling skills to desired level", () => {
     state.skills.Combat.block.multiplier = true;
 
     fillSkillsToDesiredLevel(state);
-    expect(state).toEqual(result);
+    expect(state).toEqual(expected);
   });
 
   test("edge case to probe potential infinity loop", () => {

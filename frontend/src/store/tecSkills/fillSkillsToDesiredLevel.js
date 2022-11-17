@@ -1,7 +1,7 @@
-import calculateExpNeededForLvl from "../components/tec/skills/skillsCalculations/calculateExpNeededForLvl";
-import calculateBaseLevel from "../components/tec/skills/skillsCalculations/calculateBaseLevel";
-import baseSkillsForRace from "../inventory/tec/baseSkillsForRace";
-import calculateDesiredLevel from "../components/tec/skills/skillsCalculations/calculateDesiredLevel";
+import calculateExpNeededForLvl from "../../components/tec/skills/skillsCalculations/calculateExpNeededForLvl";
+import calculateBaseLevel from "../../components/tec/skills/skillsCalculations/calculateBaseLevel";
+import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
+import calculateDesiredLevel from "../../components/tec/skills/skillsCalculations/calculateDesiredLevel";
 
 const fillSkillsToDesiredLevel = (state) => {
   const baseLevel = Math.max(

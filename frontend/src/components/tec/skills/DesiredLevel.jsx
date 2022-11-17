@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {tecSkillsActions} from "../../../store/tecSkills-slice";
+import {tecSkillsActions} from "../../../store/tecSkills/tecSkills-slice";
 
 const DesiredLevel = () => {
   const desiredLevel = useSelector(state => state.tecSkills.desiredLevel);

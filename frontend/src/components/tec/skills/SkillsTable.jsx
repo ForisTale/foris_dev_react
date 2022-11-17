@@ -2,7 +2,7 @@ import classes from "./SkillsTable.module.css"
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import {useDispatch} from "react-redux";
-import {tecSkillsActions} from "../../../store/tecSkills-slice";
+import {tecSkillsActions} from "../../../store/tecSkills/tecSkills-slice";
 
 
 const SkillsTable = (props) => {
@@ -64,7 +64,7 @@ const SkillsTable = (props) => {
     <Table className={classes.table} borderless>
       <thead>
       <tr>
-        <th>Multiplier</th>
+        <th>Multiply</th>
         <th>{props.skillCategory}</th>
         <th>Base Skills</th>
         <th>Desired Skills</th>

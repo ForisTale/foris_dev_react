@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-import baseSkillsForRace from "../inventory/tec/baseSkillsForRace";
+import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
 import fillSkillsToDesiredLevel from "./fillSkillsToDesiredLevel";
+import generateCommands from "./generateCommands";
 
 const tecSkillsSlice = createSlice({
   name: "tecSkills",
@@ -9,11 +10,13 @@ const tecSkillsSlice = createSlice({
     skills: baseSkillsForRace("Nord"),
     multiplier: "1",
     desiredLevel: "",
+    commands: [],
   },
   reducers: {
     setRace: (state, action) => {
       state.race = action.payload;
       state.skills = baseSkillsForRace(action.payload);
+      state.commands = [];
     },
     setIsMultiplierActive: (state, action) => {
       const category = action.payload.category;
@@ -37,6 +40,7 @@ const tecSkillsSlice = createSlice({
       state.desiredLevel = action.payload;
     },
     fillSkillsToDesiredLevel,
+    generateCommands,
   },
 });
 

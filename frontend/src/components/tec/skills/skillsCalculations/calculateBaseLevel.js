@@ -1,5 +1,5 @@
 import baseSkillsForRace from "../../../../inventory/tec/baseSkillsForRace";
-import calculateSkillExp from "./calculateSkillExp";
+import calculateExpFromSkills from "./calculateExpFromSkills";
 
 const calculateBaseLevel = (race, baseSkills) => {
   const defaultSkills = baseSkillsForRace(race);
@@ -11,7 +11,7 @@ const calculateBaseLevel = (race, baseSkills) => {
       const defaultSkillLevel = parseInt(defaultSkills[category][skillName]["defaultSkillLevel"]);
       const baseSkillLevel = parseInt(skill.defaultSkillLevel);
 
-      totalExp += calculateSkillExp(baseSkillLevel, defaultSkillLevel);
+      totalExp += calculateExpFromSkills(baseSkillLevel, defaultSkillLevel);
     }
   }
   const level = (-2.5 + Math.sqrt(8 * totalExp + 1225) / 10);

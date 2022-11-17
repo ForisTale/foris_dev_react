@@ -1,5 +1,5 @@
 import generateCommands from "./generateCommands";
-import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
+import defaultSkillsForRace from "../../inventory/tec/defaultSkillsForRace";
 
 describe("Generate commands from desired skills", () => {
   let state;
@@ -8,7 +8,7 @@ describe("Generate commands from desired skills", () => {
   beforeEach(() => {
     state = {
       race: race,
-      skills: baseSkillsForRace(race),
+      skills: defaultSkillsForRace(race),
       multiplier: "1",
       desiredLevel: "10",
       commands: [],

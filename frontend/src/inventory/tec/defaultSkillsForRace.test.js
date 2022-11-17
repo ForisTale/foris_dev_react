@@ -1,8 +1,8 @@
-import baseSkillsForRace from "./baseSkillsForRace";
+import defaultSkillsForRace from "./defaultSkillsForRace";
 
 describe("Return dict with altered values according to race bonuses", () => {
   test("alters matching records", () => {
-    const result = baseSkillsForRace("Nord");
+    const result = defaultSkillsForRace("Nord");
 
     expect(result.Combat.twohanded.defaultSkillLevel).toBe("25");
     expect(result.Combat.block.defaultSkillLevel).toBe("20");
@@ -11,6 +11,6 @@ describe("Return dict with altered values according to race bonuses", () => {
   });
 
   test("throw error on wrong race", () => {
-    expect(baseSkillsForRace.bind(null, "wrong race")).toThrow(Error);
+    expect(defaultSkillsForRace.bind(null, "wrong race")).toThrow(Error);
   });
 });

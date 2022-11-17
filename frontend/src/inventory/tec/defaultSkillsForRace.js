@@ -1,7 +1,7 @@
 import defaultSkills from "./defaultSkills.json";
 import racesExtraSkills from "./racesExtraSkills.json";
 
-const baseSkillsForRace = (race) => {
+const defaultSkillsForRace = (race) => {
   const extraSkills = racesExtraSkills[race];
   if(typeof extraSkills === "undefined"){
     throw Error("Wrong race! Check if there is a typo in passed race or racesExtraSkills!");
@@ -18,4 +18,4 @@ const baseSkillsForRace = (race) => {
   return skills;
 };
 
-export default baseSkillsForRace;
+export default defaultSkillsForRace;

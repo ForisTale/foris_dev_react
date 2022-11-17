@@ -1,6 +1,6 @@
 import calculateExpNeededForLvl from "../../components/tec/skills/skillsCalculations/calculateExpNeededForLvl";
 import calculateBaseLevel from "../../components/tec/skills/skillsCalculations/calculateBaseLevel";
-import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
+import defaultSkillsForRace from "../../inventory/tec/defaultSkillsForRace";
 import calculateDesiredLevel from "../../components/tec/skills/skillsCalculations/calculateDesiredLevel";
 
 const fillSkillsToDesiredLevel = (state) => {
@@ -9,7 +9,7 @@ const fillSkillsToDesiredLevel = (state) => {
     calculateDesiredLevel(state.race, state.skills)
   );
   let neededExp = calculateExpNeededForLvl(baseLevel, state.desiredLevel);
-  const defaultSkills = baseSkillsForRace(state.race);
+  const defaultSkills = defaultSkillsForRace(state.race);
   const skillsFilled = [];
   const multiplierValues = {};
 

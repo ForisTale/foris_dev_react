@@ -1,8 +1,8 @@
-import baseSkillsForRace from "../../../../inventory/tec/baseSkillsForRace";
+import defaultSkillsForRace from "../../../../inventory/tec/defaultSkillsForRace";
 import calculateExpFromSkills from "./calculateExpFromSkills";
 
 const calculateDesiredLevel = (race, baseSkills) => {
-  const defaultSkills = baseSkillsForRace(race);
+  const defaultSkills = defaultSkillsForRace(race);
   let totalExp = 0;
 
   for (const [category, skills] of Object.entries(baseSkills)) {

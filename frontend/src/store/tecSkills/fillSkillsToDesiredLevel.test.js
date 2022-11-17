@@ -1,5 +1,5 @@
 import fillSkillsToDesiredLevel from "./fillSkillsToDesiredLevel";
-import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
+import defaultSkillsForRace from "../../inventory/tec/defaultSkillsForRace";
 
 describe("Testing filling skills to desired level", () => {
   let state;
@@ -8,12 +8,12 @@ describe("Testing filling skills to desired level", () => {
   beforeEach(() => {
     state = {
       race: "Nord",
-      skills: baseSkillsForRace("Nord"),
+      skills: defaultSkillsForRace("Nord"),
       multiplier: "1",
       desiredLevel: "10",
     }
 
-    skills = baseSkillsForRace("Nord");
+    skills = defaultSkillsForRace("Nord");
     skills.Magic.alteration.desiredSkillLevel = 21;
     skills.Magic.conjuration.desiredSkillLevel = 21;
     skills.Magic.destruction.desiredSkillLevel = 21;

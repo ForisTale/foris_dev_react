@@ -1,8 +1,8 @@
-import baseSkillsForRace from "../../inventory/tec/baseSkillsForRace";
+import defaultSkillsForRace from "../../inventory/tec/defaultSkillsForRace";
 
 const generateCommands = (state) => {
   state.commands = [];
-  const defaultSkills = baseSkillsForRace(state.race);
+  const defaultSkills = defaultSkillsForRace(state.race);
   for (const [category, skills] of Object.entries(state.skills)) {
     for (const [skillName, skillDetails] of Object.entries(skills)) {
 

@@ -1,6 +1,11 @@
 const Other = () => {
   return (
-    <div>Other</div>
+    <>
+      <h2>Other</h2>
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <h6>Under construction.</h6>
+      </div>
+    </>
   );
 };
 

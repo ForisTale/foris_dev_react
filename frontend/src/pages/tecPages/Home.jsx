@@ -7,8 +7,7 @@ import Col from "react-bootstrap/Col";
 const Home = () => {
   return (
     <Row>
-      <Col className={"col-12 col-lg-4"}/>
-      <Col className={`col-12 col-lg-4 ${classes.main}`}>
+      <Col className={`col-12 col-lg-6 mx-auto ${classes.main}`}>
         <h1 className={classes.title}>The Elder Commands</h1>
         <p>This is a website I created to make it easier to play Skyrim with different skills and mods.<br/>
           You can easily add mods to the database, just follow the instructions on the plugins page.</p>
@@ -33,7 +32,6 @@ const Home = () => {
           className={classes.link}
         >Contact</Link></p>
       </Col>
-      <Col className={"col-12 col-lg-4"}/>
     </Row>
   );
 };

@@ -1,12 +1,13 @@
 import classes from "./AboutMe.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 const AboutMe = () => {
   return (
     <>
       <Row className={"my-5"}>
-        <Col className={"my-5"}>
+        <Col className={"my-5 col-12 col-md-8 mx-auto"}>
           <h3>About me:</h3>
           <p> I believe that the code should not only be written fast, but also with quality and readability in mind.
             That is why I do my best to follow agile and clean code principles.
@@ -22,9 +23,24 @@ const AboutMe = () => {
       <Row className={"my-5"}>
         <Col className={"col-4 mx-auto"}>
           <h3>Links to my accounts:</h3>
-          <ul>
-            <li><a className={classes.link} href="https://www.linkedin.com/in/Zglobicki-Pawel">LinkedIn</a></li>
-            <li><a className={classes.link} href="https://github.com/ForisTale">GitHub</a></li>
+          <ul className={classes.list}>
+            <li><Button className={classes.button}
+                        href={"https://www.linkedin.com/in/Zglobicki-Pawel"}
+                        target={"_blank"}
+                        rel={"noopener noreferrer"}
+                >
+                  LinkedIn</Button></li>
+            <li><Button className={classes.button}
+                        href={"https://github.com/ForisTale"}
+                        target={"_blank"}
+                        rel={"noopener noreferrer"}
+                >
+                  GitHub</Button></li>
+            <li><Button className={classes.button}
+                        href={"https://facebook.com/pawel.zglobicki.52"}
+                        target={"_blank"}
+                        rel={"noopener noreferrer"}
+                >Facebook</Button></li>
           </ul>
         </Col>
       </Row>

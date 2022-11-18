@@ -7,3 +7,11 @@
     text-decoration: none;
     color: #17a2b8;
 }
+
+.row {
+    margin-top: 50px !important;
+}
+
+.col p {
+    margin-top: 25px;
+}

@@ -1,3 +1,18 @@
 .link {
     text-decoration: none;
 }
+
+.button {
+    background-color: #343a40 !important;
+    color: #17a2b8 !important;
+    border: none !important;
+}
+
+.list {
+    list-style-type: none;
+    margin-top: 25px;
+}
+
+.list li {
+    margin: 10px;
+}

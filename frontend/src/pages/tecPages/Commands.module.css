@@ -1,0 +1,19 @@
+
+.row {
+    margin-top: 50px !important;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}
+
+.button button {
+    background-color: #343a40 !important;
+    color: #17a2b8 !important;
+    border: none !important;
+}
+
+.table {
+    color: #17a2b8 !important;
+}

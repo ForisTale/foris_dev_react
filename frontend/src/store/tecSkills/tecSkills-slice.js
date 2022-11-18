@@ -41,6 +41,10 @@ const tecSkillsSlice = createSlice({
     },
     fillSkillsToDesiredLevel,
     generateCommands,
+    resetSkills: state => {
+      state.skills = defaultSkillsForRace(state.race);
+      state.commands = [];
+    },
   },
 });
 

@@ -1,10 +1,11 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.utils import html
 from smtplib import SMTPException
 from utils.check_recaptcha import check_recaptcha
 import json
+from io import BytesIO
 
 
 def get_urls(request):
@@ -31,3 +32,14 @@ def contact(request):
             )
     else:
         return HttpResponse(status=405)
+
+
+def commands_download(request):
+    if request.method == "POST":
+        commands_stringify = request.POST.get("commands")
+        commands = json.loads(commands_stringify)
+        content = "\n".join(commands)
+        encoded = content.encode("utf-8")
+        file = BytesIO(encoded)
+        return FileResponse(file, as_attachment=True, filename="TEC_Commands.txt")
+    return HttpResponse(status=405)

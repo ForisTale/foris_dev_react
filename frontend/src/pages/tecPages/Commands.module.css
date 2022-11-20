@@ -3,12 +3,12 @@
     margin-top: 50px !important;
 }
 
-.button {
+.center {
     display: flex;
     justify-content: center;
 }
 
-.button button {
+.button {
     background-color: #343a40 !important;
     color: #17a2b8 !important;
     border: none !important;

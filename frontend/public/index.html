@@ -19,6 +19,7 @@
       let base_url = `${window.location.protocol}//${window.location.host}`;
       window.apiURLs = {
         "contact": `${base_url}{% url 'api:contact' %}`,
+        "commandsDownload": `${base_url}{% url "api:commands_download" %}`
       };
       window.RECAPTCHA_SITE_KEY = "{{ RECAPTCHA_SITE_KEY|safe }}";
     </script>

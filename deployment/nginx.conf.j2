@@ -1,5 +1,5 @@
 server {
-    server_name {{ ansible_host }};
+    server_name {{ ansible_host }} www.{{ ansible_host }};
 
     location /static {
         alias /home/{{ ansible_user }}/sites/{{ ansible_host }}/static;

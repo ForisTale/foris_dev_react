@@ -24,10 +24,11 @@ if is_deployed:
     with open("./deployment_settings.yaml", "r") as settings_file:
         deployment_settings = yaml.safe_load(settings_file)
     SECRET_KEY = deployment_settings.get("DJANGO_SECRET_KEY")
-    ALLOWED_HOSTS = [deployment_settings.get("SITE_NAME")]
+    ALLOWED_HOSTS = [f".deployment_settings.get('SITE_NAME')"]
     DEBUG = False
     DATABASE_NAME = deployment_settings.get("DATABASE_NAME")
-    SITE_ADDRESS = f"https://{deployment_settings.get('SITE_NAME')}"
+    SITE_ADDRESS = [f"https://{deployment_settings.get('SITE_NAME')}",
+                    f"https://www.{deployment_settings.get('SITE_NAME')}"]
 else:
     DEBUG = True
     SECRET_KEY = "insecure-key-for-dev"

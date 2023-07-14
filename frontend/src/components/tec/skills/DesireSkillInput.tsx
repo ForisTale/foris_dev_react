@@ -35,8 +35,12 @@ const BaseSkillInput: React.FC<{
     setIsValid(isDesiredSkillValid(event.target.value, validBaseSkill));
   };
 
-  const lostFocusHandler = () => {
-    setIsValid(true);
+  const lostFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (event.target.value) {
+      setIsValid(isDesiredSkillValid(event.target.value, validBaseSkill));
+    } else {
+      setIsValid(true);
+    }
   };
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -49,7 +53,7 @@ const BaseSkillInput: React.FC<{
         target={tooltipRef}
         placement={"right"}
         show={!isValid}
-        >
+      >
         <Tooltip id={`${props.skillName}_desiredTooltip`}>
           {validBaseSkill}-100
         </Tooltip>

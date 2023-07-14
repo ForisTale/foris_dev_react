@@ -21,9 +21,9 @@ describe("Generate commands from desired skills", () => {
     state.skills.Stealth.lightarmor.desiredSkillLevel = "20";
     state.skills.Stealth.speechcraft.desiredSkillLevel = "20";
     const expected = [
-      "player.advskill twohanded 473",
-      "player.advskill lightarmor 705",
-      "player.advskill speechcraft 7833"
+      "player.advskill twohanded 424",
+      "player.advskill lightarmor 631",
+      "player.advskill speechcraft 7012"
     ];
 
     const commands = generateCommands(state.race, state.skills);
@@ -35,7 +35,7 @@ describe("Generate commands from desired skills", () => {
     state.skills.Stealth.lightarmor.defaultSkillLevel = "d";
     state.skills.Stealth.speechcraft.desiredSkillLevel = "s";
     const expected = [
-      "player.advskill twohanded 473",
+      "player.advskill twohanded 424",
     ];
 
     const commands = generateCommands(state.race, state.skills);

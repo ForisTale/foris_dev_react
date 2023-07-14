@@ -5,16 +5,25 @@ import Tooltip from "react-bootstrap/Tooltip";
 import {useRef, useState} from "react";
 import React from "react";
 import {RootStateType} from "../../../store";
+import {
+  SkillCategories,
+  MagicSkills,
+  CombatSkills,
+  StealthSkills,
+  Skill
+} from "../../../inventory/tec/defaultSkillsForRace";
 
 const BaseSkillInput: React.FC<{
-  category: string,
-  skillName: string,
+  category: keyof SkillCategories,
+  skillName: keyof MagicSkills | keyof CombatSkills | keyof StealthSkills,
   defaultSkillLevel: string,
   className: string,
 }> = (props) => {
 
-  const baseSkillLevel = useSelector((state: RootStateType) =>
-    state.tecSkills.skills[props.category][props.skillName].defaultSkillLevel);
+  const baseSkillLevel = useSelector((state: RootStateType) => {
+    const categoryOfSkills = state.tecSkills.skills[props.category];
+    return (categoryOfSkills[props.skillName as keyof typeof categoryOfSkills] as Skill).defaultSkillLevel;
+  });
   const dispatch = useDispatch();
   const tooltipRef = useRef(null);
   const [isValid, setIsValid] = useState(true);
@@ -27,10 +36,6 @@ const BaseSkillInput: React.FC<{
       value: event.target.value,
     }));
     setIsValid(isBaseSkillValid(event.target.value, props.defaultSkillLevel));
-  };
-
-  const lostFocusHandler = () => {
-    setIsValid(true);
   };
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -54,7 +59,6 @@ const BaseSkillInput: React.FC<{
         value={baseSkillLevel}
         onChange={baseValueHandler}
         className={props.className}
-        onBlur={lostFocusHandler}
         onFocus={onFocusHandler}
       />
     </>

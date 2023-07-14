@@ -1,16 +1,24 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import defaultSkillsForRace from "../../inventory/tec/defaultSkillsForRace";
 import fillSkillsToDesiredLevel from "./fillSkillsToDesiredLevel";
 import generateCommands from "./generateCommands";
-import {SkillsType, RacesType} from "../../inventory/tec/defaultSkillsForRace";
+import {RacesType, SkillCategories, Skill} from "../../inventory/tec/defaultSkillsForRace";
 
 export type TecStateType = {
   race: RacesType,
-  skills: SkillsType,
+  skills: SkillCategories,
   multiplier: string,
   desiredLevel: string,
   commands: string[],
 };
+
+type PayloadSkills = {
+  [K in keyof SkillCategories] : {
+    category: K,
+    skillName: keyof SkillCategories[K],
+    value?: string,
+  };
+}[keyof SkillCategories];
 
 
 const initialState: TecStateType = {
@@ -30,20 +38,33 @@ const tecSkillsSlice = createSlice({
       state.skills = defaultSkillsForRace(action.payload);
       state.commands = [];
     },
-    setIsMultiplierActive: (state, action) => {
+    setIsMultiplierActive: (state, action: PayloadAction<PayloadSkills>) => {
       const category = action.payload.category;
       const skillName = action.payload.skillName;
-      state.skills[category][skillName].multiplier = !state.skills[category][skillName].multiplier;
+      const stateSkillCategory = state.skills[category];
+      const skill: Skill = stateSkillCategory[skillName as keyof typeof stateSkillCategory];
+
+      skill.multiplier = !skill.multiplier;
+
     },
-    setSkillDefaultValue: (state, action) => {
+    setSkillDefaultValue: (state, action: PayloadAction<PayloadSkills>) => {
       const category = action.payload.category;
       const skillName = action.payload.skillName;
-      state.skills[category][skillName].defaultSkillLevel = action.payload.value;
+      const stateSkillCategory = state.skills[category];
+      const skill: Skill = stateSkillCategory[skillName as keyof typeof stateSkillCategory];
+      if (action.payload.value) {
+        skill.defaultSkillLevel = action.payload.value;
+      }
     },
-    setSkillDesiredValue: (state, action) => {
+    setSkillDesiredValue: (state, action: PayloadAction<PayloadSkills>) => {
       const category = action.payload.category;
       const skillName = action.payload.skillName;
-      state.skills[category][skillName].desiredSkillLevel = action.payload.value;
+      const stateSkillCategory = state.skills[category];
+      const skill: Skill = stateSkillCategory[skillName as keyof typeof stateSkillCategory];
+
+      if (action.payload.value) {
+        skill.desiredSkillLevel = action.payload.value;
+      }
     },
     setMultiplierValue: (state, action) => {
       state.multiplier = action.payload;
@@ -65,4 +86,3 @@ const tecSkillsSlice = createSlice({
 export const tecSkillsActions = tecSkillsSlice.actions;
 
 export default tecSkillsSlice;
-

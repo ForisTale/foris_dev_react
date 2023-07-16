@@ -1,16 +1,23 @@
-import defaultSkillsForRace from "../../../../inventory/tec/defaultSkillsForRace";
+import defaultSkillsForRace, {
+  CombatSkills,
+  MagicSkills,
+  SkillCategories, StealthSkills
+} from "../../../../inventory/tec/defaultSkillsForRace";
 import calculateExpFromSkills from "./calculateExpFromSkills";
 import {SkillsType, RacesType} from "../../../../inventory/tec/defaultSkillsForRace";
+import {getStateSkill} from "../../../../store/tecSkills/tecSkills-slice";
 
 const calculateDesiredLevel = (race: RacesType, baseSkills: SkillsType) => {
   const defaultSkills = defaultSkillsForRace(race);
   let totalExp = 0;
 
   for (const [category, skills] of Object.entries(baseSkills)) {
-    for (const [name, skill] of Object.entries(skills)) {
+    for (const [skillName, skill] of Object.entries(skills)) {
+      const baseSkill = getStateSkill(defaultSkills, category as keyof SkillCategories,
+        skillName as keyof MagicSkills | keyof CombatSkills | keyof StealthSkills);
 
       const desiredSkillLevel = parseInt(skill.desiredSkillLevel) || parseInt(skill.defaultSkillLevel);
-      const defaultSkillLevel = parseInt(defaultSkills[category][name]["defaultSkillLevel"]);
+      const defaultSkillLevel = parseInt(baseSkill.defaultSkillLevel);
 
       totalExp += calculateExpFromSkills(desiredSkillLevel, defaultSkillLevel);
     }

@@ -4,34 +4,46 @@ import BaseSkillInput from "./BaseSkillInput";
 import DesireSkillInput from "./DesireSkillInput";
 import MultiplierCheckbox from "./MultiplierCheckbox";
 import {useSelector} from "react-redux";
-import defaultSkillsForRace from "../../../inventory/tec/defaultSkillsForRace";
+import defaultSkillsForRace, {
+  SkillCategories,
+  stealthSkillsKeys,
+  combatSkillsKeys,
+  magicSkillsKeys,
+} from "../../../inventory/tec/defaultSkillsForRace";
 import React from "react";
 import {RootStateType} from "../../../store";
+import {getStateSkill} from "../../../store/tecSkills/tecSkills-slice";
 
 
-const SkillsTable: React.FC<{category: string}> = (props) => {
-  const skills = useSelector((state: RootStateType) => state.tecSkills.skills[props.category]);
+const SkillsTable: React.FC<{ category: keyof SkillCategories }> = (props) => {
   const race = useSelector((state: RootStateType) => state.tecSkills.race);
   const defaultSkills = defaultSkillsForRace(race);
-  const tableBody = [];
+  const tableBody:  JSX.Element[] = [];
+  const skillsKeys = {
+    "Magic": magicSkillsKeys,
+    "Combat": combatSkillsKeys,
+    "Stealth": stealthSkillsKeys,
+  };
+  let tableRow
 
-  for (const skillName in skills) {
-    const tableRow = (
+  skillsKeys[props.category].map(skillName => {
+    const skill = getStateSkill(defaultSkills, props.category, skillName);
+    tableRow = (
       <tr className={classes.rowBorder} key={skillName}>
         <td><MultiplierCheckbox
           category={props.category}
           skillName={skillName}
           className={classes.multiplier}
         /></td>
-        <td className={classes.skillName}>{skills[skillName].name}</td>
+        <td className={classes.skillName}>{skill.name}</td>
         <td><BaseSkillInput
-          defaultSkillLevel={defaultSkills[props.category][skillName].defaultSkillLevel}
+          defaultSkillLevel={skill.defaultSkillLevel}
           className={classes.input}
           category={props.category}
           skillName={skillName}
         /></td>
         <td><DesireSkillInput
-          defaultSkillLevel={defaultSkills[props.category][skillName].defaultSkillLevel}
+          defaultSkillLevel={skill.defaultSkillLevel}
           className={classes.input}
           category={props.category}
           skillName={skillName}
@@ -39,7 +51,7 @@ const SkillsTable: React.FC<{category: string}> = (props) => {
       </tr>
     );
     tableBody.push(tableRow);
-  }
+  })
 
   return (
     <Table className={classes.table} borderless>

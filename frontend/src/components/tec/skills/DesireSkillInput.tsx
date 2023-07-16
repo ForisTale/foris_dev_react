@@ -6,18 +6,24 @@ import Tooltip from "react-bootstrap/Tooltip";
 import {useRef, useState} from "react";
 import React from "react";
 import {RootStateType} from "../../../store";
+import {CombatSkills, MagicSkills, SkillCategories, StealthSkills} from "../../../inventory/tec/defaultSkillsForRace";
+import {getStateSkill} from "../../../store/tecSkills/tecSkills-slice";
 
 const BaseSkillInput: React.FC<{
-  category: string,
+  category: keyof SkillCategories,
+  skillName: keyof MagicSkills | keyof CombatSkills | keyof StealthSkills,
   defaultSkillLevel: string,
-  skillName: string,
   className: string,
 }> = (props) => {
 
-  const desireSkillLevel = useSelector((state: RootStateType) =>
-    state.tecSkills.skills[props.category][props.skillName].desiredSkillLevel);
-  const baseSkillLevel = useSelector((state: RootStateType) =>
-    state.tecSkills.skills[props.category][props.skillName].defaultSkillLevel);
+  const desireSkillLevel = useSelector((state: RootStateType) => {
+    const skill = getStateSkill(state.tecSkills.skills, props.category, props.skillName);
+    return skill.desiredSkillLevel
+  });
+  const baseSkillLevel = useSelector((state: RootStateType) => {
+    const skill = getStateSkill(state.tecSkills.skills, props.category, props.skillName);
+    return skill.defaultSkillLevel;
+  });
   const validBaseSkill = isBaseSkillValid(baseSkillLevel, props.defaultSkillLevel)
     ? baseSkillLevel
     : props.defaultSkillLevel;

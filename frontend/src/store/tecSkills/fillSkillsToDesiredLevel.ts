@@ -1,8 +1,12 @@
 import calculateExpNeededForLvl from "../../components/tec/skills/skillsCalculations/calculateExpNeededForLvl";
 import calculateBaseLevel from "../../components/tec/skills/skillsCalculations/calculateBaseLevel";
-import defaultSkillsForRace from "../../inventory/tec/defaultSkillsForRace";
+import defaultSkillsForRace, {
+  CombatSkills,
+  MagicSkills,
+  SkillCategories, StealthSkills
+} from "../../inventory/tec/defaultSkillsForRace";
 import calculateDesiredLevel from "../../components/tec/skills/skillsCalculations/calculateDesiredLevel";
-import {TecStateType} from "./tecSkills-slice";
+import {getStateSkill, TecStateType} from "./tecSkills-slice";
 
 const fillSkillsToDesiredLevel = (state: TecStateType) => {
   const baseLevel = Math.max(
@@ -13,15 +17,18 @@ const fillSkillsToDesiredLevel = (state: TecStateType) => {
   let neededExp = calculateExpNeededForLvl(baseLevel, desiredLevel);
   const defaultSkills = defaultSkillsForRace(state.race);
   const skillsFilled: string[] = [];
-  const multiplierValues: {[key: string]: number} = {};
+  const multiplierValues: { [key: string]: number } = {};
 
   while (neededExp > 0) {
 
     for (const [category, skills] of Object.entries(state.skills)) {
       for (const [skillName, skillDetails] of Object.entries(skills)) {
+        const baseSkill = getStateSkill(defaultSkills, category as keyof SkillCategories,
+          skillName as keyof MagicSkills | keyof CombatSkills | keyof StealthSkills);
+
         let desiredSkillLevel = parseInt(skillDetails.desiredSkillLevel)
           || parseInt(skillDetails.defaultSkillLevel)
-          || parseInt(defaultSkills[category][skillName].defaultSkillLevel);
+          || parseInt(baseSkill.defaultSkillLevel);
 
         if (desiredSkillLevel >= 100) {
           if (desiredSkillLevel > 100) skillDetails.desiredSkillLevel = "100";

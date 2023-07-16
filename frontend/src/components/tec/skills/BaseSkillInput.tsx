@@ -10,8 +10,8 @@ import {
   MagicSkills,
   CombatSkills,
   StealthSkills,
-  Skill
 } from "../../../inventory/tec/defaultSkillsForRace";
+import {getStateSkill} from "../../../store/tecSkills/tecSkills-slice";
 
 const BaseSkillInput: React.FC<{
   category: keyof SkillCategories,
@@ -21,8 +21,8 @@ const BaseSkillInput: React.FC<{
 }> = (props) => {
 
   const baseSkillLevel = useSelector((state: RootStateType) => {
-    const categoryOfSkills = state.tecSkills.skills[props.category];
-    return (categoryOfSkills[props.skillName as keyof typeof categoryOfSkills] as Skill).defaultSkillLevel;
+    const skill = getStateSkill(state.tecSkills.skills, props.category, props.skillName);
+    return skill.defaultSkillLevel;
   });
   const dispatch = useDispatch();
   const tooltipRef = useRef(null);

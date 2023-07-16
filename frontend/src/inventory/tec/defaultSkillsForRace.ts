@@ -45,6 +45,14 @@ export type SkillCategories = {
   Stealth: StealthSkills;
 };
 
+export const magicSkillsKeys: (keyof MagicSkills)[] = ['alteration', 'conjuration', 'destruction', 'enchanting',
+  'illusion', 'restoration'];
+export const combatSkillsKeys: (keyof CombatSkills)[] = ['marksman', 'block', 'heavyarmor', 'onehanded', 'smithing',
+  'twohanded'];
+export const stealthSkillsKeys: (keyof StealthSkills)[] = ['alchemy', 'lightarmor', 'lockpicking', 'pickpocket', 'sneak',
+  'speechcraft'];
+
+
 export type SkillLevels = {
   illusion?: number;
   alteration?: number;
@@ -114,7 +122,7 @@ const defaultSkillsForRace = (race: RacesType) => {
   if (typeof extraSkills === "undefined") {
     throw Error("Wrong race! Check if there is a typo in passed race or racesExtraSkills!");
   }
-  const skills: SkillCategories = defaultSkills;
+  const skills: SkillCategories = JSON.parse(JSON.stringify(defaultSkills));
 
   for (const category in extraSkills) {
     const skillCategory = skills[category as keyof SkillCategories];

@@ -1,17 +1,20 @@
 import Form from "react-bootstrap/Form";
 import {useSelector, useDispatch} from "react-redux";
-import {tecSkillsActions} from "../../../store/tecSkills/tecSkills-slice";
+import {getStateSkill, tecSkillsActions} from "../../../store/tecSkills/tecSkills-slice";
 import React from "react";
 import {RootStateType} from "../../../store";
+import {CombatSkills, MagicSkills, SkillCategories, StealthSkills} from "../../../inventory/tec/defaultSkillsForRace";
 
 const MultiplierCheckbox: React.FC<{
-  category: string,
-  skillName: string,
+  category: keyof SkillCategories,
+  skillName: keyof MagicSkills | keyof CombatSkills | keyof StealthSkills,
   className: string,
 }> = (props) => {
 
-  const checked = useSelector(
-      (state: RootStateType) => state.tecSkills.skills[props.category][props.skillName].multiplier);
+  const multiplierChecked = useSelector((state: RootStateType) => {
+    const skill = getStateSkill(state.tecSkills.skills, props.category, props.skillName);
+    return skill.multiplier;
+  });
   const dispatch = useDispatch();
 
   const multiplierHandler = () => {
@@ -25,7 +28,7 @@ const MultiplierCheckbox: React.FC<{
     <Form.Check
       id={`${props.skillName}_multiplier`}
       type={"checkbox"}
-      checked={checked}
+      checked={multiplierChecked}
       className={props.className}
       onChange={multiplierHandler}
     />
